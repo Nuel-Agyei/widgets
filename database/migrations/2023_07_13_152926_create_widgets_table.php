@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('widgets', function (Blueprint $table) {
             $table->id();
             $table->string('name', 225);
+            $table->string('level', 225);
+            $table->string('titam', 225);
             $table->timestamps();
         });
     }
