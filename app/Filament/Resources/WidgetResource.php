@@ -4,12 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\WidgetResource\Pages;
 use App\Filament\Resources\WidgetResource\RelationManagers;
+use App\Filament\Resources\WidgetResource\Widgets\StatsOverview;
 use App\Models\Widget;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -23,7 +26,9 @@ class WidgetResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
+                TextInput::make('level'),
+                TextInput::make('titam'),
             ]);
     }
 
@@ -31,7 +36,9 @@ class WidgetResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('level'),
+                TextColumn::make('titam'),
             ])
             ->filters([
                 //
@@ -43,14 +50,20 @@ class WidgetResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
@@ -58,5 +71,5 @@ class WidgetResource extends Resource
             'create' => Pages\CreateWidget::route('/create'),
             'edit' => Pages\EditWidget::route('/{record}/edit'),
         ];
-    }    
+    }
 }
